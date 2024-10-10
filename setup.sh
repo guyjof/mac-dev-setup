@@ -10,7 +10,7 @@ echo "Installing Xcode Command Line Tools"
 softwareupdate -i "Command Line Tools for Xcode" --agree-to-license
 
 # Install Homebrew
-if ! hash brew
+if ! hash brew 2>/dev/null; then
   echo "Installing Homebrew"
   yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   echo "Adding Homebrew to environment"
