@@ -14,11 +14,14 @@ if ! hash brew 2>/dev/null; then
   echo "Installing Homebrew"
   yes | /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   echo "Adding Homebrew to environment"
-  echo "eval \"$(/opt/homebrew/bin/brew shellenv)\"" >> ~/.zprofile
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+  echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+  
+  # Source the profile to apply changes immediately
+  source ~/.zprofile
 else
   echo "Homebrew is already installed"
 fi
+
 
 brew install curl wget openssl@3
 
