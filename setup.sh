@@ -5,6 +5,11 @@ INSTALL_FOLDER=~/.macsetup
 mkdir -p $INSTALL_FOLDER
 MAC_SETUP_PROFILE=$INSTALL_FOLDER/macsetup_profile
 
+# A boxed message
+echo -e "${BLUE}==============================${NC}"
+echo -e "${BOLD}      Starting Mac Setup      ${NC}"
+echo -e "${BLUE}==============================${NC}"
+
 # Xcode Command Line Tools
 echo "Installing Xcode Command Line Tools"
 softwareupdate -i "Command Line Tools for Xcode" --agree-to-license
@@ -74,11 +79,15 @@ echo "Installing CLI tools"
 brew install ack                                    # search tool like grep, but optimized for programmers
 brew install bat                                    # replacement for cat
 brew install ctop                                   # htop-like interface for container metrics
+brew install fzf                                    # Fuzzy finder
+brew install git-delta                              # git diff viewer
+brew install gh                                     # GitHub CLI
 brew install htop                                   # interactive process viewer
 brew install jq                                     # command-line JSON processor
 brew install lsd                                    # replacement for ls
 brew install micro                                  # replacement for nano/vi
 brew install tldr                                   # Simplified man pages.
+brew install thefuck                                # corrects your previous command
 
 # add aliases to profile
 {
@@ -101,6 +110,9 @@ brew install --cask font-hack-nerd-font
 # Browser
 echo "Installing Google Chrome"
 brew install --cask google-chrome
+brew install --cask brave-browser
+brew install --cask firefox
+brew install --cask arc
 
 # Music / Video
 echo "Installing Music / Video apps"
@@ -115,10 +127,11 @@ brew install --cask rectangle                       # window manager
 brew install --cask raycast                         # productivity tool
 brew install --cask stats                           # system monitoring tool
 brew install --cask tomatobar                       # productivity tool
+brew install --cask 1password                       # password manager
 
 # Communication
 echo "Installing Communication apps"
-brew install --cask slack
+brew install --cask slack                           # team communication
 
 # Dev tools
 echo "Installing Dev tools"
@@ -132,15 +145,14 @@ brew install --cask visual-studio-code              # code editor
 # Databases
 echo "Installing Databases and tools"
 brew install timescaledb/tap/timescaledb            # time-series database
-brew install postgresql                             # postgresql database
+brew install postgresql@14                          # postgresql database
 brew install pgcli                                  # postgresql client
-brew install --cask beekeeper-studio                # database management tool
+brew install --cask dbeaver-community               # database management tool
 
 # Networking
 echo "Installing Networking tools"
 brew install wireshark                              # network protocol analyzer
 brew install netcat                                 # networking utility
-brew install openssl                                # SSL/TLS cryptography library
 brew install telnet                                 # telnet client
 
 # Docker
@@ -165,9 +177,7 @@ else
 fi
 
 echo "Installing Node"
-nvm install node
-echo "Installing pnpm"
-brew install pnpm
+nvm install 20.11.0
 
 ## Go
 {
@@ -183,28 +193,32 @@ brew install go
 echo "export PATH=\"/usr/local/opt/python/libexec/bin:\$PATH\"" >> $MAC_SETUP_PROFILE
 echo "Installing Python"
 brew install python
-pip install --user pipenv
-pip install --upgrade setuptools
-pip install --upgrade pip
 brew install pyenv
+brew install poetry ??
+pip3 install --upgrade setuptools
+pip3 install --upgrade pip
 echo 'eval "$(pyenv init -)"' >> $MAC_SETUP_PROFILE
 
 ## Java
 echo "Installing Java"
-curl -s "https://get.sdkman.io" | bash                                                               # sdkman is a tool to manage multiple version of java
+curl -s "https://get.sdkman.io" | bash          # sdkman is a tool to manage multiple version of java
 source "$HOME/.sdkman/bin/sdkman-init.sh"
-sdk install java
-brew install maven
-brew install gradle
+sdk install java                                # install latest java version
+brew install maven                              # build tool for java projects
+brew install gradle                             # build tool for java projects
+
+## Kotlin (Temurin)
+brew install --cask temurin@11                  # install openjdk 11
+
 
 # Install Python packages
 echo "Installing scapy"
-pip3 install scapy
+pip3 install scapy                              # packet manipulation tool
 
 # AWS command line
 echo "Installing AWS CLI"
-brew install awscli                                 # Official command line
-pip3 install saws                                   # Supercharged AWS CLI with auto-completion
+brew install awscli                             # Official command line
+pip3 install saws                               # Supercharged AWS CLI with auto-completion
 
 # reload profile files.
 {
